@@ -1,0 +1,35 @@
+ul.mechabyte-youtube-videos li {
+	display:block;
+	position:relative;
+	margin-bottom:5%;
+	overflow:hidden;
+}
+ul.mechabyte-youtube-videos li a:link,
+ul.mechabyte-youtube-videos li a:hover,
+ul.mechabyte-youtube-videos li a:visited {
+	display:block;
+}
+
+ul.mechabyte-display-decorated li a:link,
+ul.mechabyte-display-decorated li a:hover,
+ul.mechabyte-display-decorated li a:visited {
+	color:#ffffff;
+}
+ul.mechabyte-youtube-videos li a img {
+	display:block;
+	max-width:100%;
+}
+ul.mechabyte-youtube-videos li a div.label {
+	display:block;
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	background:url(../images/mb-youtube-bg.png);
+	background:rgba(0, 0, 0, 0.7);
+}
+ul.mechabyte-youtube-videos li a div.label h5 {
+	display:block;
+	padding:3%;
+	font-weight:normal;
+}
