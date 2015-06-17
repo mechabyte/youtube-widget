@@ -36,17 +36,15 @@ Now it's time to get creative. When creating a function that will loop through t
 Keep in mind that you have access to the following pieces of information when creating your video loop:
 
         $item['title'] // Video title
-        $item['id'] // Video ID
+        $item['videoID'] // Video ID
         $item['viewCount'] // Video view count
-      	$item['publishedAt'] // Video publish date
+      	$item['published'] // Video publish date
         $item['duration'] // Video duration in hh:mm:ss
         $item['numLikes'] // Video likes count
         $item['link'] // Video link
         $item['image']['default'] // 'Default' thumbnail (low quality)
         $item['image']['mqdefault'] // Medium quality thumbnail
         $item['image']['hqdefault'] // High quality thumbnail
-
-
         
 Here's an example of some code that adds a custom function to our `mb_construct_plain` filter (assuming we've already removed the default functions). Keep in mind the `3` at the end. That lets Wordpress expect our three arguments that will be passed through. Check out Wordpress' [add_filter()](http://codex.wordpress.org/Function_Reference/add_filter) page for more info.
 
