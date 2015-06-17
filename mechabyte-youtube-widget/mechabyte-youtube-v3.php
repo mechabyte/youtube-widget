@@ -160,7 +160,7 @@ Author URI: http://www.mechabyte.com
 				}
 				$video_cache_obj = new stdClass();
 				$video_cache_obj->{"$channel_id"} = $videos;
-				//set_transient( $transient_id, $video_cache_obj, $cache);
+				set_transient( $transient_id, $video_cache_obj, $cache);
 				return $videos;
 			}
 
