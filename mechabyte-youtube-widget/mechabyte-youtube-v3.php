@@ -148,7 +148,8 @@ Author URI: http://www.mechabyte.com
 						$videos[$key]['thumbnails']['default'] = $video_data['items'][0]['snippet']['thumbnails']['default']['url'];
 						$videos[$key]['thumbnails']['medium'] = $video_data['items'][0]['snippet']['thumbnails']['medium']['url'];
 						$videos[$key]['thumbnails']['high'] = $video_data['items'][0]['snippet']['thumbnails']['high']['url'];
-						$videos[$key]['duration'] = $video_data['items'][0]['contentDetails']['duration'];
+						$videos[$key]['duration'] = self::interval_to_seconds( $video_data['items'][0]['contentDetails']['duration'] );
+						$videos[$key]['duration_formatted'] = self::format_time( $videos[$key]['duration'] );
 						$videos[$key]['statistics']['viewCount'] = $video_data['items'][0]['statistics']['viewCount'];
 						$videos[$key]['statistics']['likeCount'] = $video_data['items'][0]['statistics']['likeCount'];
 						$videos[$key]['statistics']['dislikeCount'] = $video_data['items'][0]['statistics']['dislikeCount'];
@@ -159,7 +160,7 @@ Author URI: http://www.mechabyte.com
 				}
 				$video_cache_obj = new stdClass();
 				$video_cache_obj->{"$channel_id"} = $videos;
-				set_transient( $transient_id, $video_cache_obj, $cache);
+				//set_transient( $transient_id, $video_cache_obj, $cache);
 				return $videos;
 			}
 
@@ -196,7 +197,7 @@ Author URI: http://www.mechabyte.com
 					$output .= ' target="_blank"';
 				}
 				$output .= '>';
-				$output .= '<img src="' . $video['image']['mqdefault'] . '" />';
+				$output .= '<img src="' . $video['thumbnails']['medium'] . '" />';
 				$output .= '<div class="label"><h5>' . $video['title'] . '</h5></div>';
 				$output .= '</a>';
 				$output .= '</li>';
@@ -248,6 +249,24 @@ Author URI: http://www.mechabyte.com
 		 * Formats int value of seconds into HH:MM:SS string
 		 * @return string HH:MM:SS representation of duration (seconds)
 		 */
+
+		function interval_to_seconds($date_time) {
+			$interval = new DateInterval($date_time);
+			$duration = 0;
+			if($interval->d) {
+				$duration += $interval->d * 60*60*24;
+			}
+			if($interval->h) {
+				$duration += $interval->h * 60*60;
+			}
+			if($interval->i) {
+				$duration += $interval->i * 60;
+			}
+			if($interval->s) {
+				$duration += $interval->s;
+			}
+			return $duration;
+		}
 
 		function format_time($s) {
 		    $time = round($s);
