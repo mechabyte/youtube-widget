@@ -61,6 +61,9 @@ Author URI: http://www.mechabyte.com
 			<p>
 			Brief instructions are included below however you can also find additional information through Google's guide to <a href="https://developers.google.com/youtube/registering_an_application" target="_blank">registering an application</a> and the <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank">getting started guide to YouTube's Data API</a>.
 			</p>
+			<p>
+			It now takes several API queries to retrieve the same information that was available in one query through YouTube's old API. As a result, pages will take longer to load when the plugin is fetching new information for the cache. I have improved caching and set a longer duration on fetched data (six hours vs one, previously) to help boost performance.
+			</p>
 			<hr>
 			<h4>Create your project and select API services</h4>
 				<ol>
@@ -92,8 +95,29 @@ Author URI: http://www.mechabyte.com
 			    </table>
 			    
 			    <?php submit_button(); ?>
-
 			</form>
+			<?php
+			// Allow users to opt-out of donate button
+			if(isset($_GET['hide_donation_link'])) {
+				update_option( 'mbyt_hide_donation_link', true );
+			}
+			if ( get_option('mbyt_hide_donation_link') != true ) { ?>
+			<hr>
+			<p>
+			Several users have reached out to offer donations in exchange for providing this plugin. If you feel that my work has benefitted your site and want to donate, I've placed a PayPal link below. If you've already donated or simply never want to see this note again just click <a href="tools.php?page=mb-youtube-videos&hide_donation_link">this link</a> to hide the message forever.
+			</p>
+			<p>
+			Best,<br>Matt Smith
+			</p>
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="float:left">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+				<?php } ?>
+
 		</div>
 		<?php }
 
